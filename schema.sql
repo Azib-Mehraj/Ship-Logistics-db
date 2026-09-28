@@ -1,7 +1,3 @@
--- MySQL dump 10.13  Distrib 26.7.0, for Win64 (x86_64)
---
--- Host: localhost    Database: logistics
--- ------------------------------------------------------
 -- Server version	26.7.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -158,7 +154,8 @@ CREATE TABLE `shipment` (
   `current_status` varchar(50) DEFAULT NULL,
   `ship_id` int DEFAULT NULL,
   PRIMARY KEY (`shipment_id`),
-  KEY `ship_id` (`ship_id`)
+  KEY `shipment_ibfk_1` (`ship_id`),
+  CONSTRAINT `shipment_ibfk_1` FOREIGN KEY (`ship_id`) REFERENCES `ship` (`ship_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -191,4 +188,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-28 14:42:32
+-- Dump completed on 2026-09-28 17:41:07
