@@ -2,11 +2,11 @@
 #include "dbconnection.hpp"
 #include <mysqlx/xdevapi.h>
 DBConnection::DBConnection(
-    const std::string& host,
+    const string& host,
     unsigned int port,
-    const std::string& username,
-    const std::string& password,
-    const std::string& database
+    const string& username,
+    const string& password,
+    const string& database
     ) : host(host),
       port(port),
       username(username),
@@ -21,9 +21,8 @@ void DBConnection::connect() {
             password
         );
         mysqlx::Schema mySchema = mySession.getSchema(database);
-        std::cout << "Database connection successful!" << std::endl;
-        std::cout << "Connected to database: "
-                  << mySchema.getName() << std::endl;
+        cout << "Database connection successful!" << endl;
+        cout << "Connected to database: " << mySchema.getName() << endl;
         mySession.close();
     }
     catch(const mysqlx::Error& error) {
