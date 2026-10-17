@@ -1,1 +1,24 @@
 *.txt
+# CMake build output
+build/
+cmake-build-*/
+
+# VS Code local settings
+.vscode/
+
+# Compiled files
+*.exe
+*.obj
+*.o
+*.pdb
+*.ilk
+*.lib
+*.dll
+
+# User-specific CMake files
+CMakePresets.json
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
