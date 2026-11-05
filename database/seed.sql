@@ -10,8 +10,8 @@ USE logistics;
 START TRANSACTION;
 
 INSERT INTO employees (employee_id, employee_name) VALUES
-(1, 'Aarav Sharma'),
-(2, 'Meera Khan'),
+(1, 'Azib Mehraj'),
+(2, 'Syed Hashim'),
 (3, 'Kabir Singh'),
 (4, 'Zoya Ahmed'),
 (5, 'Rohan Gupta');
