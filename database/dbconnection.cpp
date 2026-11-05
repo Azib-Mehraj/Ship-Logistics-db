@@ -1,6 +1,6 @@
 #include <iostream>
+#include <stdexcept>
 #include "dbconnection.hpp"
-#include <mysqlx/xdevapi.h>
 DBConnection::DBConnection(
     const string& host,
     unsigned int port,
@@ -13,21 +13,19 @@ DBConnection::DBConnection(
       password(password),
       database(database) {}
 void DBConnection::connect() {
-    try {
-        mysqlx::Session mySession (
-            host,
-            port,
-            username,
-            password
-        );
-        mysqlx::Schema mySchema = mySession.getSchema(database);
-        cout << "Database connection successful!" << endl;
-        cout << "Connected to database: " << mySchema.getName() << endl;
-        mySession.close();
+    session = make_unique<mysqlx::Session>(
+        host,
+        port,
+        username,
+        password
+    );
+    mysqlx::Schema mySchema = session->getSchema(database);
+    cout << "Database connection successful!" << endl;
+    cout << "Connected to database: " << mySchema.getName() << endl;
+}
+mysqlx::Session& DBConnection::getSession() {
+    if (!session) {
+        throw runtime_error("Database session is not connected.");
     }
-    catch(const mysqlx::Error& error) {
-        cout << "Database connection failed!" << endl;
-        cerr << error.what() << '\n';
-    }
-    
+    return *session;
 }

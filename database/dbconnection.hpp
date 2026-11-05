@@ -2,6 +2,8 @@
 #define DBCONNECTION_HPP
 
 #include <string>
+#include <memory>
+#include <mysqlx/xdevapi.h>
 using namespace std;
 class DBConnection {
     private:
@@ -10,6 +12,8 @@ class DBConnection {
     string username;
     string password;
     string database;
+
+    unique_ptr<mysqlx::Session> session;
     public:
     DBConnection(
         const string& host,
@@ -19,5 +23,6 @@ class DBConnection {
         const string& database
     );
     void connect();
+    mysqlx::Session& getSession();
 };
 #endif
