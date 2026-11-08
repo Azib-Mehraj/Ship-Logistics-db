@@ -5,7 +5,7 @@
 -- explicit primary-key IDs are used to keep relationships easy to follow.
 -- This file does not insert roles, permissions, or login users.
 
-USE logistics;
+-- Database selection is handled by setup-database.ps1.
 
 START TRANSACTION;
 
