@@ -5,15 +5,10 @@
 #include <unordered_map>
 #include "database/dbConnection.hpp"
 #include <stdexcept> //throw exceptions
+#include "logisticsIO.hpp"
 
 unordered_map<string, string> loadEnv(const string& filename);
 
-struct loggedInUser {
-    unsigned int userId;
-    unsigned int employeeId;
-    string employeeName;
-    string roleName;
-};
 int main() {
     cout << "Ship Logistics Project" << endl;
     auto env = loadEnv(".env");
@@ -34,25 +29,16 @@ int main() {
             env.at("DB_NAME")
         );
         db.connect();
-        LoggedInUser currentUser;
+        LoggedInUser currentUser; //stores user info
         if (!login(db, currentUser)) {
             return 0;
         }
-        cout << "\n--- Permission Test ---\n";
-        cout << "Manage employees: "
-            << (hasPermission(currentUser, "MANAGE_EMPLOYEES") ? "Yes" : "No")
-            << "\n";
-        cout << "Manage shipments: "
-            << (hasPermission(currentUser, "MANAGE_SHIPMENTS") ? "Yes" : "No")
-            << "\n";
-        cout << "Delete records: "
-            << (hasPermission(currentUser, "DELETE_RECORDS") ? "Yes" : "No")
-            << "\n";
-    } catch (const std::exception& error) {
+        LogisticsApp app(db, currentUser);//control menu
+        app.run();
+    } catch (const exception& error) {
         cerr << "Configuration error: " << error.what() << endl;
         return 1;
     }
-    
     return 0;
 }
 
